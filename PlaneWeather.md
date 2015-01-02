@@ -21,4 +21,4 @@ The report should include Temperature, humidity, windspeed and other information
 
 ## Weather
 Weather data can be obtained from any source on the internet.
-http://weathersource.com/weather-api    This is a good source, with a good API and a free account. 
+http://weathersource.com/weather-api has a good API and a free account. 
