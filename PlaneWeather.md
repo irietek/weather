@@ -19,4 +19,6 @@ Create a weather forecast report once every "Time Interval"
 The report should include Temperature, humidity, windspeed and other information of note.
 
 
-*  
+## Weather
+Weather data can be obtained from any source on the internet.
+http://weathersource.com/weather-api    This is a good source, with a good API and a free account. 
