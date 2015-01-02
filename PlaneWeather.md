@@ -32,6 +32,7 @@ The application should be hosted on ec2 (or heroku)
 *  The backend should be written as a stand alone service that the UI can use
 *  Create route at the back end using any simple means.
 *  WebUI should show a map with source, destination and the route.
+*  WebUI should be created as a single page javascript app.
 *  The weather forecast data should be rendered in any suitable format.
 *  Weather data should be cached. 
 
