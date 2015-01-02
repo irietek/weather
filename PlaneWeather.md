@@ -29,8 +29,8 @@ Implement the backend of this solution in python and host the code on github.
 The application should be hosted on ec2 (or heroku or others) and provide login credentials. 
 
 ## Solution Details
-*  Backend should be written as a stand alone service that the UI can use
-*  Create route at the backend using any simple means.
+*  Backend should be written as a stand alone RESTFul service that the UI can use
+*  Compute a route between the source and the destination using straight line, great circle on any algorithm of your choice.
 *  WebUI should show a map with source, destination and the route.
 *  WebUI should be created as a single page javascript app.
 *  Weather forecast data should be rendered in any suitable format.
