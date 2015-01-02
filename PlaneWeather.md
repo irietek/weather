@@ -25,23 +25,23 @@ Weather data can be obtained from any source on the internet.
 http://weathersource.com/weather-api has a good API and a free account. 
 
 ## Solution
-Implement this in python and host the code on github.
-The application should be hosted on ec2 (or heroku)
+Implement the backend of this solution in python and host the code on github.
+The application should be hosted on ec2 (or heroku or others) and provide login credentials. 
 
 ## Solution Details
-*  The backend should be written as a stand alone service that the UI can use
-*  Create route at the back end using any simple means.
+*  Backend should be written as a stand alone service that the UI can use
+*  Create route at the backend using any simple means.
 *  WebUI should show a map with source, destination and the route.
 *  WebUI should be created as a single page javascript app.
-*  The weather forecast data should be rendered in any suitable format.
+*  Weather forecast data should be rendered in any suitable format.
 *  Weather data should be cached. 
 
 ## Extra
 * It should be possible to provide a departure time in the past.
 
 ## Evaluation
-* We are looking for a complete and deploybale solution
-* Write tests
-* Write a README if necessary
+* We are looking for a complete and deploybale solution.
+* Write tests.
+* Write a README if necessary.
 * Commit often to the repository.
-* We encourage you to ask questions this challenge problem.  
+* We encourage you to ask questions and make assumptions explicit.  
