@@ -21,4 +21,25 @@ The report should include Temperature, humidity, windspeed and other information
 
 ## Weather
 Weather data can be obtained from any source on the internet.
+
 http://weathersource.com/weather-api has a good API and a free account. 
+
+## Solution
+Implement this in python and host the code on github.
+The application should be hosted on ec2 (or heroku)
+
+## Solution Details
+*  The backend should be written as a stand alone service that the UI can use
+*  WebUI should show a map with source, destination and the route.
+*  The weather forecast data should be rendered in any suitable format.
+*  Weather data should be cached. 
+
+## Extra
+* It should be possible to provide a departure time in the past.
+
+## Evaluation
+* We are looking for a complete and deploybale solution
+* Write tests
+* Write a README if necessary
+* Commit often to the repository.
+* We encourage you to ask questions this challenge problem.  
