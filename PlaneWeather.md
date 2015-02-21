@@ -25,7 +25,7 @@ Weather data can be obtained from any source on the internet.
 http://weathersource.com/weather-api has a good API and a free account. 
 
 ## Solution
-Implement the backend of this solution in python and host the code on github.
+Implement the backend of this solution in python (or another language of your choice) and host the code on github.
 The application should be hosted on ec2 (heroku or others) and provide login credentials. 
 
 ## Solution Details
