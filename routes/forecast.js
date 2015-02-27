@@ -57,16 +57,16 @@ router.get('/', function(req, res, next) {
 
 /* GET forecast at a point in time */
 router.get('/:cord/:time?', function(req, res, next){
-  var cord, time;
+  var cord, time, request;
 
   cord = req.params.cord;
   time = req.params.time;
 
-  request   = config.host + '/forecast/' + config.apiKey + '/' + cord;
+  request = config.host + '/forecast/' + config.apiKey + '/' + cord;
+  request = (time) ? request+','+time : request;
   forecastReq(request, function(err, result){
     res.send(result);
   });
-  //res.send([cord, time]);
 });
 
 /* GET path plot from params */
@@ -92,14 +92,16 @@ router.get('/:orig_latlong/:dest_latlong/:dep_time/:speed', function(req, res, n
   points    = new Array(Math.ceil(duration));
   last_plot = points.length;
   for (var i = 0; i < last_plot; i++) {
-    var distance_traveled, distance_left;
+    var distance_traveled, time_elapsed, current_latitude, current_longitude;
     distance_traveled = ((speed * (i+1)) >= distance) ? distance - (speed * i) : speed * (i + 1);
     current_latitude  = (i === last_plot - 1) ? lat2 : lat1 + (lat_rate * (i+1));
     current_latitude  = current_latitude.toFixed(6);
     current_longitude = (i === last_plot - 1) ? lon2 : lon1 + (lon_rate * (i+1));
     current_longitude = current_longitude.toFixed(6);
+    time_elapsed      = (i === last_plot - 1) ? duration : i;
     points[i] = {
       distance_traveled : distance_traveled,
+      time_elapsed      : time_elapsed,
       current_latitude  : current_latitude,
       current_longitude : current_longitude,
       current_cordinate : current_latitude+','+current_longitude
