@@ -13,6 +13,28 @@ PilotWeather.config(['$routeProvider', function($routeProvider){
     });
 }]);
 
+PilotWeather.factory('AirportService', ['$log', '$http', function($log, $http){
+  
+  return {
+    airport: null,
+    request: function(args, callback){
+      var url = '/data/airports.json';
+      
+      $http.get(url)
+        .success(function(data){
+          if (callback) {
+            airport = data;
+            callback(data);
+          }
+        })
+        .error(function(data, status){
+          $log.debug("error", data, status);
+        })
+    }
+  }
+}]);
+
+
 PilotWeather.factory('ForecastService', ['$log', '$http', function($log, $http){
   
   return {
@@ -52,13 +74,39 @@ PilotWeather.factory('PlotService', ['$log', '$http', function($log, $http){
   }
 }]);
 
+PilotWeather.controller('ForecastController', ['$log', '$rootScope', 'ForecastService', function($log, $rootScope, ForecastService){
+  this.plot     = [];
+  this.display  = false;
+  var _self     = this;
+  
+  $rootScope.$on('plot:forecast', function(event, data){
+    // Forecast request
+    _self.display = true;
+    _.forEach(data.points, function(point){
+      var time = data.time.add(point.time_elapsed, 'hours');
+      var arg = {
+        cord  : point.current_cordinate,
+        time  : time.format('X'),
+        show  : time.format('lll')
+      };
+      ForecastService.request(arg, function(weather){
+        weather.time = arg.show;
+        weather.cord = arg.cord;
+        _self.plot.push(weather);
+      });
+    });
+  });
+
+}]);
+
 PilotWeather.controller('MainController', [function(){
   $(function () {
     $('#inputTime').datetimepicker();
   });
 }]);
 
-PilotWeather.controller('PlotController', ['$log', 'PlotService', 'ForecastService', function($log, PlotService, ForecastService){
+PilotWeather.controller('PlotController', ['$log', '$rootScope', 'PlotService', function($log, $rootScope, PlotService){
+
   var _self;
 
   this.plot     = null;
@@ -90,29 +138,19 @@ PilotWeather.controller('PlotController', ['$log', 'PlotService', 'ForecastServi
   };
 
   this.forecast = function(data){
-    // Zoom level
+    // TODO: Figure out and apply a zoom level formula
     if (data.distance > 601 && data.distance < 1000) _self.map.zoom = 4;
     if (data.distance > 401 && data.distance < 600) _self.map.zoom = 5;
     if (data.distance > 200 && data.distance < 400) _self.map.zoom = 6;
+    
     // Find map center point
     var mid = Math.floor(data.points.length / 2);
     _self.display     = true;
     _self.map.center  = data.points[mid].current_cordinate;
 
-    // Factor zoom level, based on distance
-
     // Forecast request
-    _.forEach(data.points, function(point){
-      var time = _self.time.add(point.time_elapsed, 'hours');
-      var arg = {
-        cord  : point.current_cordinate,
-        time  : time.format('X')
-      };
-      ForecastService.request(arg, function(data){
-        console.log("forecast", data);
-      });
-    });
+    data.time = _self.time;
+    $rootScope.$broadcast('plot:forecast', data);
   };
 
-  $log.debug('PlotController');
 }]);

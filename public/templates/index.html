@@ -1,7 +1,7 @@
 <section ng-controller="PlotController as plot">
   <div class="row">
     <div class="col-lg-6">
-      <h2 class="col-lg-offset-4 col-lg-8">Flights</h2>
+      <h1 class="col-lg-offset-4 col-lg-8">Flight Query</h1>
       <form class="form-horizontal" ng-submit="plot.submit($event)">
         <div class="form-group">
           <label for="inputOrig" class="control-label col-lg-4">Source</label>
@@ -39,5 +39,32 @@
     <div class="col-lg-6">
       <img ng-show="plot.display" ng-src="https://maps.googleapis.com/maps/api/staticmap?center={{plot.map.center}}&size={{plot.map.size}}&zoom={{plot.map.zoom}}&markers={{plot.map.start}}{{plot.request.orig}}&markers={{plot.map.end}}{{plot.request.dest}}&path={{plot.map.path}}|{{plot.request.orig}}|{{plot.request.dest}}">
     </div>
+  </div>
+</section>
+<section ng-controller="ForecastController as forecast">
+  <div class="row" ng-show="forecast.display">
+    <h2>Forecast along route</h2>
+    <table width="100%">
+      <tr>
+        <th>Time</th>
+        <th>Cordinate</th>
+        <th>Summary</th>
+        <th>Temperature</th>
+        <th>Humidity</th>
+        <th>Wind Speed</th>
+        <th>Wind Direction</th>
+        <th>Visibility</th>
+      </tr>
+      <tr ng-repeat="point in forecast.plot">
+        <td ng-bind="point.time"></td>
+        <td ng-bind="point.cord"></td>
+        <td ng-bind="point.summary"></td>
+        <td ng-bind="point.temperature"></td>
+        <td ng-bind="point.humidity"></td>
+        <td ng-bind="point.windSpeed"></td>
+        <td ng-bind="point.windBearing"></td>
+        <td ng-bind="point.visibility"></td>
+      </tr>
+    </table>
   </div>
 </section>
